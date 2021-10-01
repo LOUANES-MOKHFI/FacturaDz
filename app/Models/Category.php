@@ -11,4 +11,8 @@ class Category extends Model
 	use SoftDeletes;
     protected $table = 'categories';
     protected $guarded = [];
+
+    public function invoices(){
+    	return $this->hasMany(Invoice::class);
+    }
 }

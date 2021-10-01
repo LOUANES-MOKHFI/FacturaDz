@@ -24,7 +24,7 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|unique:categories,id,'.$this->id,
+            'name'=> 'required|unique:categories,id,'.$this->id,
             'description' => 'nullable|min:3',
         ];
     }

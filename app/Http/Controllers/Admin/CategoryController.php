@@ -76,6 +76,14 @@ class CategoryController extends Controller
    
     public function destroy($id)
     {
-        //
+        $data = [];
+        $data['category'] = Category::where('id',$id)->first();
+        if(!$data['category']){
+            return redirect()->route('admin.settings.categories')->with(['error'=>'cette categorie n\'existe pas']);
+        }
+        $data['category']->delete();
+
+        return redirect()->route('admin.settings.categories')->with(['success' => 'La categorie est supprimée avec success']);
+
     }
 }

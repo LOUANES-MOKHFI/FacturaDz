@@ -9,4 +9,8 @@ class Invoice extends Model
 	use SoftDeletes;
     protected $table = 'invoices';
     protected $guarded = [];
+
+    public function category(){
+    	return $this->belongsTo(Category::class,'');
+    }
 }
