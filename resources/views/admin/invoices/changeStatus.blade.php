@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-{{__('admin/invoices.edit_invoice')}}
+{{__('admin/invoices.changePayment_status')}}
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
                                 </li>
                                 <li class="breadcrumb-item"><a href="{{route('admin.invoices')}}"> {{__('admin/invoices.all_invoices')}}  </a>
                                 </li>
-                                <li class="breadcrumb-item active">{{__('admin/invoices.edit_invoice')}}
+                                <li class="breadcrumb-item active">{{__('admin/invoices.changePayment_status')}}
                                 </li>
                             </ol>
                         </div>
@@ -31,21 +31,20 @@
                         <div class="col-md-12">
                             <div class="box-content">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">  {{__('admin/invoices.edit_invoice')}} </h4>
+                                    <h4 class="card-title" id="basic-layout-form">  {{__('admin/invoices.changePayment_status')}} </h4>
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('admin.invoices.update',$invoice->uuid)}}" method="POST" 
+                                        <form class="form" action="{{route('admin.invoices.changeStatus',$invoice->uuid)}}" method="POST" 
                                             enctype='multipart/form-data'>
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$invoice->id}}">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.invoice_num')}}</label>
                                                             <input type="text" value="{{$invoice->invoice_number}}" id="name"
-                                                                   class="form-control" placeholder="  " name="invoice_number">
+                                                                   readonly class="form-control" placeholder="  " name="invoice_number">
                                                             @error("invoice_number")
                                                             <span class="text-danger"> {{$message}}  </span>
                                                             @enderror
@@ -55,7 +54,7 @@
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.invoice_date')}}</label>
                                                                    <input type="date" value="{{$invoice->invoice_date}}" id="name"
-                                                                   class="form-control" placeholder=" " name="invoice_date">
+                                                                   readonly class="form-control" placeholder=" " name="invoice_date">
                                                             @error("invoice_date")
                                                             <span class="text-danger"> {{$message}}  </span>
                                                             @enderror
@@ -64,7 +63,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.due_date')}}</label>
-                                                                   <input type="date" value="{{$invoice->due_date}}" id="name"
+                                                                   <input type="date" value="{{$invoice->due_date}}" id="name" readonly
                                                                    class="form-control" placeholder=" " name="due_date">
                                                             @error("due_date")
                                                             <span class="text-danger"> {{$message}}  </span>
@@ -76,13 +75,8 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.categories')}}</label>
-                                                            <select class="form-control" name="category_id" id="category">
-                                                                <option>{{__('admin/invoices.chose_categories')}}</option>
-                                                                @isset($categories)
-                                                                    @foreach($categories as $key=>$category)
-                                                                        <option value="{{$category->id}}" @if($category->id == $invoice->category_id) selected @endif>{{$category->name}}</option>
-                                                                    @endforeach
-                                                                @endisset
+                                                            <select class="form-control" readonly name="category_id" id="category">
+                                                            	<option value="{{$invoice->category_id}}">{{$invoice->category->name}}</option>
                                                             </select>
                                                             @error("category_id")
                                                             <span class="text-danger"> {{$message}}  </span>
@@ -92,7 +86,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.product')}}</label>
-                                                            <select class="form-control" name="product_id" id="products">
+                                                            <select class="form-control" readonly name="product_id" id="products">
                                                                <option value="{{$invoice->product}}">{{$invoice->products->product_name}}</option>
                                                             </select>
                                                             @error("product_id")
@@ -103,7 +97,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.Amount_collection')}}</label>
-                                                                   <input type="text" value="{{$invoice->Amount_collection}}" id="name"
+                                                                   <input type="text" readonly value="{{$invoice->Amount_collection}}" id="name"
                                                                    class="form-control" placeholder=" " name="Amount_collection">
                                                             @error("Amount_collection")
                                                             <span class="text-danger"> {{$message}}  </span>
@@ -115,7 +109,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.Amount_Commission')}}</label>
-                                                            <input type="text" value="{{$invoice->Amount_Commission}}" class="form-control" placeholder=" " id="amount_Commission" name="amount_Commission">
+                                                            <input type="text" readonly value="{{$invoice->Amount_Commission}}" class="form-control" placeholder=" " id="amount_Commission" name="amount_Commission">
                                                             @error("amount_Commission")
                                                             <span class="text-danger"> {{$message}}  </span>
                                                             @enderror
@@ -124,7 +118,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.discount')}}</label>
-                                                           <input type="text" value="{{$invoice->discount}}"
+                                                           <input type="text" readonly value="{{$invoice->discount}}"
                                                                    class="form-control" placeholder=" "  id="discount" name="discount">
                                                             @error("discount")
                                                             <span class="text-danger"> {{$message}}  </span>
@@ -134,11 +128,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.Rate_vat')}}</label>
-                                                            <select class="form-control" id="Rate_vat" name="Rate_vat" onchange="Calculate()">
-                                                                <option></option>
-                                                                <option value="5%" @if($invoice->Rate_vat == '5%') selected @endif>5%</option>
-                                                                <option value="10%" @if($invoice->Rate_vat == '10%') selected @endif>10%</option>
-                                                            </select>
+                                                            <input type="text" class="form-control" readonly name="Rate_vat" value="{{$invoice->Rate_vat}}">
                                                             @error("Rate_vat")
                                                             <span class="text-danger"> {{$message}}  </span>
                                                             @enderror
@@ -169,7 +159,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/invoices.note')}}</label>
-                                                            <textarea type="text" id="name" class="form-control" placeholder=" " name="note">
+                                                            <textarea type="text" readonly id="name" class="form-control" placeholder=" " name="note">
                                                                    {{$invoice->note}}
                                                             </textarea>
                                                             
@@ -179,6 +169,31 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                	<div class="col-md-6">
+                                                		<div class="form-group">
+                                                            <label for="projectinput1">{{__('admin/invoices.status')}}</label>
+                                                          	<select class="form-control" name="status" required="">
+                                                          		<option selected="true" disabled="disabled" value="">-- {{__('admin/invoices.chose_status')}} --</option>
+                                                          		<option value="payé">{{__('admin/invoices.payed')}}</option>
+                                                          		<option value="Partiellement payé">{{__('admin/invoices.partialy_payed')}}</option>
+                                                          	</select>
+                                                            @error("status")
+                                                            <span class="text-danger"> {{$message}}  </span>
+                                                            @enderror
+                                                        </div>
+                                                	</div>
+                                                	<div class="col-md-6">
+                                                		<div class="form-group">
+                                                            <label for="projectinput1">Date de paiment</label>
+                                                           <input type="date"  value="{{old('Payment_Date')}}" id="Payment_Date"
+                                                                   class="form-control" placeholder=" " name="Payment_Date">
+                                                            @error("Payment_Date")
+                                                            <span class="text-danger"> {{$message}}  </span>
+                                                            @enderror
+                                                        </div>
+                                                	</div>
+                                                </div>
                                             </div>
 
                                             <div class="form-actions">
@@ -187,7 +202,7 @@
                                                     <i class="ft-x"></i> {{__('admin/invoices.back')}}
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> {{__('admin/invoices.save')}}
+                                                    <i class="la la-check-square-o"></i> {{__('admin/invoices.changePayment_status')}}
                                                 </button>
                                             </div>
                                         </form>

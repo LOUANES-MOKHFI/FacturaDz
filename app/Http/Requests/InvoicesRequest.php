@@ -24,7 +24,15 @@ class InvoicesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'invoice_number' => 'required',
+            'invoice_date' => 'required',
+            'due_date' => 'required',
+            'product_id' => 'required|exists:products,id',
+            'category_id' => 'required|exists:categories,id',
+            'Amount_collection' => 'required',
+            'amount_Commission' => 'required',
+            'discount' => 'required',
+            'Rate_vat' => 'required',
         ];
     }
 }

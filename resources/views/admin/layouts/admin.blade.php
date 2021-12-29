@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('admin/assets/plugin/modal/remodal/remodal.css')}}">
 	<link rel="stylesheet" href="{{asset('admin/assets/plugin/modal/remodal/remodal-default-theme.css')}}">
     <link rel="stylesheet" href="{{asset('admin/assets/plugin/dropify/css/dropify.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/assets/plugin/notify/css/notifIt.css')}}">
 
 	<link rel="stylesheet" type="text/css" href="#" id="test">
 <script type="text/javascript">
@@ -43,8 +44,16 @@
     <link rel="stylesheet" href="{{asset('admin/assets/plugin/tinymce/skins/lightgray/skin.min.css')}}">
 	<!-- Must include this script FIRST -->
 	<script src="{{asset('admin/assets/plugin/tinymce/tinymce.min.js')}}"></script>
-    @yield('style')
+	<script src="{{asset('admin/assets/plugin/jquery-ui/jquery-ui.min.css')}}"></script>
+	<script src="{{asset('admin/assets/plugin/jquery-ui/jquery-ui.structure.min.css')}}"></script>
+	<script src="{{asset('admin/assets/plugin/jquery-ui/jquery-ui.theme.min.css')}}"></script>
 
+    @yield('style')
+<style type="text/css">
+	.drpdwn{
+		z-index: 1;
+	}
+</style>
 
 </head>
 <body>
@@ -55,7 +64,7 @@
 <!-- /#message-popup -->
 <div id="wrapper">
 	<div class="main-content">
-        @include('admin.includes.alerts.alerts')
+        @include('admin.includes.alerts.notify')
 		@yield('content')
         <form action="post"></form>
         @include('admin.includes.footer')
@@ -115,8 +124,11 @@
 	<script src="{{asset('admin/assets/plugin/modal/remodal/remodal.min.js')}}"></script>
     <script src="{{asset('admin/assets/plugin/dropify/js/dropify.min.js')}}"></script>
     <script src="{{asset('admin/assets/scripts/fileUpload.demo.min.js')}}"></script>
-
-
+    <script src="{{asset('admin/assets/plugin/jquery-ui/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('admin/assets/plugin/jquery-ui/jquery.ui.touch-punch.min.js')}}"></script>
+    
+    <script src="{{asset('admin/assets/plugin/notify/js/notifIt.js')}}"></script>
+    <script src="{{asset('admin/assets/plugin/notify/js/notifit-custom.js')}}"></script>
 
 	@yield('script')
 

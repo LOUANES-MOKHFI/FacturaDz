@@ -1,29 +1,31 @@
 @extends('admin.layouts.admin')
 @section('title')
-{{__('admin/invoices.all_invoices')}}
+{{__('admin/navBar.paid_invoices')}}
 @endsection
 @section('content')
 
 <div class="row small-spacing">
             <div class="col-xs-12">
-                <div class="content-header row">
-                    <div class="content-header-left col-md-6 col-12 mb-2">
-                        <div class="row breadcrumbs-top">
-                            <div class="breadcrumb-wrapper col-12">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="">Accueil </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="{{route('admin.invoices')}}"> {{__('admin/invoices.all_invoices')}}  </a>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            	<div class="content-header row">
+		            <div class="content-header-left col-md-6 col-12 mb-2">
+		                <div class="row breadcrumbs-top">
+		                    <div class="breadcrumb-wrapper col-12">
+		                        <ol class="breadcrumb">
+		                            <li class="breadcrumb-item"><a href="">Accueil </a>
+		                            </li>
+		                            <li class="breadcrumb-item"><a href="{{route('admin.invoices')}}"> {{__('admin/invoices.all_invoices')}}  </a>
+		                            </li>
+		                            <li class="breadcrumb-item active">{{__('admin/navBar.paid_invoices')}}
+		                            </li>
+		                        </ol>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
                 <div class="box-content">
                     <div class="row">
                         <div class="col-xs-12 col-md-12 col-sm-6 col-lg-6">
-                            <h4 class="box-title">{{__('admin/invoices.all_invoices')}}</h4>
+                            <h4 class="box-title"></h4>
                         </div>
                         <div class="col-xs-12 col-md-12 col-sm-6 col-lg-6">
                             <a href="{{route('admin.invoices.create')}}"
@@ -62,28 +64,15 @@
                                                 </button> 
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href=" {{ route('admin.invoices.edit',$invoice->uuid)}}"><i class="text-warning fa fa-edit"></i>&nbsp;&nbsp;{{__('admin/invoices.edit_invoice')}}
+                                                        <a class="dropdown-item" href=" {{ route('admin.invoices.edit',$invoice->uuid)}}"><i class="fa fa-edit"></i> {{__('admin/invoices.edit_invoice')}}
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" data-toggle="modal" data-uuid="{{$invoice->uuid}}" data-target="#delete_invoice" href="#"><i class="text-danger fa fa-trash"></i>&nbsp;&nbsp;{{__('admin/invoices.delete_invoice')}}
+                                                        <a class="dropdown-item" data-toggle="modal" data-uuid="{{$invoice->uuid}}" data-target="#delete_invoice" href="#"><i class="fa fa-trash"></i> {{__('admin/invoices.delete_invoice')}}
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="{{ route('admin.invoices.changeStatus',$invoice->uuid)}}"><i class="text-success fa fa-money"></i>&nbsp;&nbsp;{{__('admin/invoices.changePayment_status')}}
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#" data-uuid="{{ $invoice->uuid }}" data-toggle="modal" data-target="#Transfer_invoice"><i
-                                                                class="text-warning fa fa-exchange"></i>&nbsp;&nbsp;
-                                                            {{__('admin/invoices.archived')}}  
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="
-                                                        {{ route('admin.invoices.print',$invoice->uuid)}}"><i
-                                                                class="text-success fa fa-print"></i>&nbsp;&nbsp;
-                                                                {{__('admin/invoices.printInvoice')}}
+                                                        <a class="dropdown-item" href="{{ route('admin.invoices.changeStatus',$invoice->uuid)}}"><i class="fa fa-money"></i> {{__('admin/invoices.changePayment_status')}}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -116,13 +105,13 @@
                                 @endforeach
                             @endisset
                             </tbody>
-                        </table>   
+                        </table>  
                         <div class="form-actions">
                             <button type="button" class="btn btn-warning mr-1"
                                     onclick="history.back();">
                                 <i class="ft-x"></i> {{__('admin/invoices.back')}}
                             </button>
-                        </div>                         
+                        </div>                          
                     </div>
                 </div>
                 <!-- /.box-content -->
@@ -133,7 +122,6 @@
 @endsection
 @section('script')
     @include('admin.includes.modals.deleteInvoice')
-    @include('admin.includes.modals.transfereInvoice')
 <script type="text/javascript">
      $('#delete_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
@@ -142,12 +130,4 @@
             modal.find('.modal-body #uuid').val(uuid);
         })
 </script>
-<script>
-    $('#Transfer_invoice').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var uuid = button.data('uuid')
-        var modal = $(this)
-        modal.find('.modal-body #uuid').val(uuid);
-    })
-    </script>
 @endsection

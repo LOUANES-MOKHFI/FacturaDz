@@ -37,6 +37,21 @@
 					<a class="waves-effect" href="#"><i class="menu-icon mdi mdi-view-dashboard"></i><span>{{__('admin/navBar.dashboard')}}</span></a>
 				</li>
 				<li>
+					<a class="waves-effect" href="{{route('admin.products')}}"><i class="menu-icon fa fa-check-square"></i><span>{{__('admin/navBar.products')}}</span></a>
+				</li>
+				<li>
+					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-chart-areaspline"></i><span>{{__('admin/navBar.invoices')}}</span><span class="menu-arrow fa fa-angle-down"></span></a>
+					<ul class="sub-menu js__content">
+						<li><a href="{{route('admin.invoices')}}">{{__('admin/navBar.invoices')}}</a></li>
+						<li><a href="{{route('admin.invoices.Paid')}}">{{__('admin/navBar.paid_invoices')}}</a></li>
+						<li><a href="{{route('admin.invoices.notPaid')}}">{{__('admin/navBar.not_paid_invoices')}}</a></li>
+						<li><a href="{{route('admin.invoices.PartialyPaid')}}">{{__('admin/navBar.partialy_paid_invoices')}}</a></li>
+						<li><a href="{{route('admin.invoices.archivedInvoice')}}">{{__('admin/navBar.archived_invoice')}}</a></li>
+						
+					</ul>
+					<!-- /.sub-menu js__content -->
+				</li>
+				<li>
 					<a class="waves-effect" href="{{route('admin.settings')}}"><i class="menu-icon fa fa-check-square"></i><span>{{__('admin/navBar.settings')}}</span></a>
 				</li>
                 

@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 @section('title')
-{{__('admin/invoices.all_invoices')}}
+{{__('admin/invoices.all_invoices_archived')}}
 @endsection
 @section('content')
 
@@ -13,7 +13,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="">Accueil </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{route('admin.invoices')}}"> {{__('admin/invoices.all_invoices')}}  </a>
+                                    <li class="breadcrumb-item"><a href="{{route('admin.invoices.archivedInvoice')}}"> {{__('admin/invoices.all_invoices_archived')}}  </a>
                                     </li>
                                 </ol>
                             </div>
@@ -23,7 +23,7 @@
                 <div class="box-content">
                     <div class="row">
                         <div class="col-xs-12 col-md-12 col-sm-6 col-lg-6">
-                            <h4 class="box-title">{{__('admin/invoices.all_invoices')}}</h4>
+                            <h4 class="box-title">{{__('admin/invoices.all_invoices_archived')}}</h4>
                         </div>
                         <div class="col-xs-12 col-md-12 col-sm-6 col-lg-6">
                             <a href="{{route('admin.invoices.create')}}"
@@ -62,28 +62,13 @@
                                                 </button> 
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href=" {{ route('admin.invoices.edit',$invoice->uuid)}}"><i class="text-warning fa fa-edit"></i>&nbsp;&nbsp;{{__('admin/invoices.edit_invoice')}}
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" data-toggle="modal" data-uuid="{{$invoice->uuid}}" data-target="#delete_invoice" href="#"><i class="text-danger fa fa-trash"></i>&nbsp;&nbsp;{{__('admin/invoices.delete_invoice')}}
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="{{ route('admin.invoices.changeStatus',$invoice->uuid)}}"><i class="text-success fa fa-money"></i>&nbsp;&nbsp;{{__('admin/invoices.changePayment_status')}}
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#" data-uuid="{{ $invoice->uuid }}" data-toggle="modal" data-target="#Transfer_invoice"><i
+                                                        <a class="dropdown-item" href="#" data-uuid="{{ $invoice->uuid }}" data-toggle="modal" data-target="#Desarchived_invoice"><i
                                                                 class="text-warning fa fa-exchange"></i>&nbsp;&nbsp;
-                                                            {{__('admin/invoices.archived')}}  
+                                                            {{__('admin/invoices.desarchived')}}  
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="
-                                                        {{ route('admin.invoices.print',$invoice->uuid)}}"><i
-                                                                class="text-success fa fa-print"></i>&nbsp;&nbsp;
-                                                                {{__('admin/invoices.printInvoice')}}
+                                                        <a class="dropdown-item" data-toggle="modal" data-uuid="{{$invoice->uuid}}" data-target="#delete_archived_invoice" href="#"><i class="text-danger fa fa-trash"></i>&nbsp;&nbsp; {{__('admin/invoices.delete_invoice')}}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -116,13 +101,13 @@
                                 @endforeach
                             @endisset
                             </tbody>
-                        </table>   
+                        </table>
                         <div class="form-actions">
                             <button type="button" class="btn btn-warning mr-1"
                                     onclick="history.back();">
                                 <i class="ft-x"></i> {{__('admin/invoices.back')}}
                             </button>
-                        </div>                         
+                        </div>                        
                     </div>
                 </div>
                 <!-- /.box-content -->
@@ -132,10 +117,10 @@
 
 @endsection
 @section('script')
-    @include('admin.includes.modals.deleteInvoice')
-    @include('admin.includes.modals.transfereInvoice')
+    @include('admin.includes.modals.deleteInvoiceArchived')
+    @include('admin.includes.modals.desarchivedInvoice')
 <script type="text/javascript">
-     $('#delete_invoice').on('show.bs.modal', function(event) {
+     $('#delete_archived_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var uuid = button.data('uuid')
             var modal = $(this)
@@ -143,7 +128,7 @@
         })
 </script>
 <script>
-    $('#Transfer_invoice').on('show.bs.modal', function(event) {
+    $('#Desarchived_invoice').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var uuid = button.data('uuid')
         var modal = $(this)
